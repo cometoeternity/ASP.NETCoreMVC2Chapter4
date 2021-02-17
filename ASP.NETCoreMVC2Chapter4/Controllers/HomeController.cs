@@ -11,15 +11,12 @@ namespace ASP.NETCoreMVC2Chapter4.Controllers
     {
         public ViewResult Index()
         {
-            List<string> results = new List<string>();
-            foreach (Product p in Product.GetProducts())
+            ShoppingCart shoppingCart = new ShoppingCart
             {
-                string name = p?.Name ?? "<No name>";
-                decimal? price = p?.Price ?? 0;
-                string relatedName = p?.Related?.Name ?? "<None>";
-                results.Add($"Name: {name}, Price: {price}, Related: {relatedName}");
-            }
-            return View(results);
+                Products = Product.GetProducts()
+            };
+            decimal cartPrice = shoppingCart.TotalPrices();
+            return View("Index", new string[] { $"Total: {cartPrice}"});
         }
     }
 }
