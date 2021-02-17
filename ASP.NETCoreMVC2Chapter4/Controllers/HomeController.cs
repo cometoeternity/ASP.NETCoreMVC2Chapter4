@@ -11,22 +11,14 @@ namespace ASP.NETCoreMVC2Chapter4.Controllers
     {
         public ViewResult Index()
         {
-            ShoppingCart shoppingCart = new ShoppingCart
+            var products = new[]
             {
-                Products = Product.GetProducts()
+                new {Name="Kayak", Price = 48.95M},
+                new {Name = "Lifejacket", Price = 19.50M},
+                new {Name = "Soccer ball", Price = 34.95M}
             };
-            Product[] productArray = {
-                new Product {Name = "Kayak", Price = 275M},
-                new Product {Name = "Lifejacket", Price= 48.95M},
-                new Product {Name = "Soccer ball", Price = 19.50M},
-                new Product {Name = "Corner flag", Price = 34.95M}
-            };
-            decimal cartPrice = shoppingCart.TotalPrices();
-            decimal priceFilterByPrice = productArray.Filter(p => (p?.Price ?? 0) >= 20).TotalPrices();
-            decimal priceFilterByName = productArray.Filter(p => p?.Name?[0]=='S').TotalPrices();
-            return View("Index", new string[] {
-                $"Filter by Price Total: {priceFilterByPrice}",
-                $"Filter by Name: {priceFilterByName}"});
+
+            return View(products.Select(p=> p.Name));
         }
     }
 }
