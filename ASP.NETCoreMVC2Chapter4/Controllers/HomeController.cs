@@ -22,11 +22,11 @@ namespace ASP.NETCoreMVC2Chapter4.Controllers
                 new Product {Name = "Corner flag", Price = 34.95M}
             };
             decimal cartPrice = shoppingCart.TotalPrices();
-            decimal arrayTotal = productArray.FilterByPrice(20).TotalPrices();
-            decimal nameFilterTotal = productArray.FilterByName('S').TotalPrices();
+            decimal priceFilterByPrice = productArray.Filter(p => (p?.Price ?? 0) >= 20).TotalPrices();
+            decimal priceFilterByName = productArray.Filter(p => p?.Name?[0]=='S').TotalPrices();
             return View("Index", new string[] {
-                $"Array Total: {arrayTotal}",
-                $"Filter Total: {nameFilterTotal}"});
+                $"Filter by Price Total: {priceFilterByPrice}",
+                $"Filter by Name: {priceFilterByName}"});
         }
     }
 }
